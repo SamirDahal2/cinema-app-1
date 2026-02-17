@@ -29,7 +29,21 @@ app.post("/movies", (req, res) => {
   res.json(newMovie);
 });
 
+// UPDATE movie
+app.put("/movies/:id", (req, res) => {
+  const id = Number(req.params.id);
+  movies = movies.map(m =>
+    m.id === id ? { ...m, ...req.body } : m
+  );
+  res.json({ message: "Movie updated" });
+});
 
+// DELETE movie
+app.delete("/movies/:id", (req, res) => {
+  const id = Number(req.params.id);
+  movies = movies.filter(m => m.id !== id);
+  res.json({ message: "Movie deleted" });
+});
 
 app.listen(3001, () => {
   console.log("Backend running on port 3001");
